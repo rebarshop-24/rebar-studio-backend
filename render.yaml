@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: rebar-studio-backend
+    env: python
+    plan: starter
+    region: oregon
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port 10000"
+    envVars:
+      - key: GOOGLE_APPLICATION_CREDENTIALS
+        value: /etc/secrets/gen-lang-client-0023520101-2cf6c4d25bcf.json
+      - key: GEMINI_API_KEY
+        sync: false
+    secretFiles:
+      - path: /etc/secrets/gen-lang-client-0023520101-2cf6c4d25bcf.json
+        contents: ${RENDER_SECRET_FILE_content}
